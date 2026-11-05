@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>BIA — Diagnóstico de rentabilidad y gestión</title>
+<title>BIA — Diagnóstico Pyme</title>
 <style>
 :root{--bg:#f6f7fb;--card:#fff;--ink:#14213d;--mute:#5b6478;--line:#e2e6f0;--acc:#1f6feb;--acc2:#12b3a0;--accink:#fff;--fill:rgba(31,111,235,.22);
 box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);color-scheme:light}
@@ -187,7 +187,7 @@ document.getElementById("go").onclick=function(){
   var perfect=pc.every(function(v){return v===100});
   var lvl=perfect?"¡Excelente!":tot<40?"En construcción":tot<70?"En desarrollo":"Bien encaminado";
   var sum=perfect?"Parece que vas muy bien. ¡Felicitaciones!":tot<40?"Hay varios frentes donde pequeños cambios pueden generar mucho valor.":tot<70?"Ya hay una buena base sobre la cual seguir mejorando.":"La gestión está bien encaminada, con espacio para seguir afinando.";
-  post({tipo:"resultado",id:ID,rubro:val("rub"),empleados:document.getElementById("cant").value,total:tot,nivel:lvl,puntajes:pc,dolor:val("dolor")});ST={nom:val("nom"),emp:val("emp"),rub:val("rub"),cant:document.getElementById("cant").value,dol:val("dolor"),tot:tot,lvl:lvl,pc:pc};
+  post({tipo:"resultado",id:ID,rubro:val("rub"),empleados:document.getElementById("cant").value,total:tot,nivel:lvl,puntajes:pc,dolor:val("dolor"),preguntas:Q.map(function(q){return q[1]}),respuestas:Q.map(function(q,i){return q[2][+document.querySelector('input[name="q'+i+'"]:checked').value]})});ST={nom:val("nom"),emp:val("emp"),rub:val("rub"),cant:document.getElementById("cant").value,dol:val("dolor"),tot:tot,lvl:lvl,pc:pc};
   document.getElementById("tot").textContent=tot+"/100";
   document.getElementById("lvl").textContent=lvl;
   document.getElementById("sum").textContent=sum;
