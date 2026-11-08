@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>BIA — Diagnóstico Pyme</title>
+<title>BIA — ¿Qué te duele de tu empresa?</title>
 <style>
 :root{--bg:#f6f7fb;--card:#fff;--ink:#14213d;--mute:#5b6478;--line:#e2e6f0;--acc:#1f6feb;--acc2:#12b3a0;--accink:#fff;--fill:rgba(31,111,235,.22);
 box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);color-scheme:light}
@@ -44,6 +44,9 @@ textarea{min-height:90px;resize:vertical}
 .row{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px}
 footer{color:var(--mute);font-size:13px;margin-top:28px;text-align:center}
 .br{margin:12px 0}.bl{display:flex;justify-content:space-between;font-size:14px;margin-bottom:4px}.bt{height:10px;background:var(--line);border-radius:9px;overflow:hidden}.bt i{display:block;height:100%;background:linear-gradient(90deg,var(--acc),var(--acc2));border-radius:9px}
+.seg{display:flex;gap:4px}.seg i{flex:1;height:10px;border-radius:6px;background:var(--line)}.seg i.on{background:linear-gradient(90deg,var(--acc),var(--acc2))}
+.sm{font-size:13px;color:var(--mute);margin:0 0 10px}
+.opt input.ot{margin:0;padding:6px 8px;width:auto;flex:1;min-width:0}
 </style>
 </head>
 <body>
@@ -52,8 +55,7 @@ footer{color:var(--mute);font-size:13px;margin-top:28px;text-align:center}
 
   <section id="intro">
     <h1>¿Qué te duele de tu empresa?</h1>
-    <p class="lead">En menos de 5 minutos, identificá oportunidades de mejora para tu empresa. Sin costo y al instante.</p>
-    <p style="color:var(--mute);margin:0 0 26px">Respondé 16 preguntas sobre tu empresa. Al terminar vas a ver tus puntos fuertes y tus dos mayores oportunidades de mejora. Si querés profundizar, podés coordinar una reunión sin compromiso.</p>
+    <p class="lead">En menos de 5 minutos, identificá oportunidades de mejora para tu empresa. Respondé y accedé a 2 consultorías de una hora, sin cargo.</p>
   </section>
 
   <section id="quiz">
@@ -65,42 +67,46 @@ footer{color:var(--mute);font-size:13px;margin-top:28px;text-align:center}
     </div>
     <div class="bar"><i id="prog"></i></div>
     <div id="qs"></div>
+    <div class="card" id="pre">
+      <p class="q">¿Qué te preocupa más hoy? <span style="font-weight:400;color:var(--mute)">(elegí hasta 3)</span></p>
+    </div>
     <div class="card">
       <p class="q">Si pudieras resolver un “dolor de cabeza” en tu empresa, ¿cuál sería? <span style="font-weight:400;color:var(--mute)">(opcional)</span></p>
       <textarea id="dolor" placeholder="Contanos con tus palabras"></textarea>
     </div>
-    <p style="font-size:13px;color:var(--mute);margin:0 0 8px">Tus respuestas se guardan de forma anónima con fines estadísticos. Tus datos de contacto solo se guardan si pedís que te contactemos.</p>
+    <p class="sm">Resultado orientativo, basado en tus respuestas. Tus respuestas se guardan de forma anónima con fines estadísticos. Tus datos de contacto solo se guardan si pedís que te contactemos.</p>
     <div class="err" id="err"></div>
     <button class="btn" id="go">Ver mi resultado →</button>
   </section>
 
   <section id="res">
     <div class="card">
-      <div class="score" id="tot"></div>
-      <div class="lvl" id="lvl"></div>
+      <div class="lvl" id="lvl" style="font-size:26px;color:var(--acc)"></div>
       <div id="sum" style="color:var(--mute)"></div>
       <div id="axes" style="margin-top:14px"></div>
+      <p class="sm" style="margin:14px 0 0">Resultado orientativo, basado en tus respuestas.</p>
     </div>
     <div class="card">
       <h2 id="oh" style="margin:0 0 6px;font-size:20px"></h2>
       <div id="opps"></div>
+      <div id="prel" style="margin-top:12px"></div>
     </div>
     <div class="card">
       <h2 style="margin:0 0 6px;font-size:20px">Hablemos de tus resultados</h2>
-      <p style="color:var(--mute);margin:0 0 16px">Para más información, podés coordinar una reunión sin compromiso.</p>
-      <p class="q">¿Te interesa que te contactemos para repasar tus resultados?</p>
+      <p style="color:var(--mute);margin:0 0 16px">Accedé a 2 consultorías de una hora, sin cargo.</p>
+      <p class="q">¿Querés que te contactemos para coordinarlas?</p>
       <label class="opt"><input type="radio" name="pref" value="Mail"><span>Sí, por mail</span></label>
       <label class="opt"><input type="radio" name="pref" value="Teléfono o WhatsApp"><span>Sí, por teléfono o WhatsApp</span></label>
       <label class="opt"><input type="radio" name="pref" value="No por ahora"><span>Por ahora no</span></label>
       <div id="cf" style="display:none">
         <label class="f" style="margin-top:12px">Mail<input type="text" id="mail" autocomplete="email" inputmode="email"></label>
         <label class="f">Teléfono (con característica)<input type="text" id="tel" autocomplete="tel" inputmode="tel"></label>
-        <p style="font-size:13px;color:var(--mute);margin:0">Usamos tus datos solo para contactarte por este diagnóstico.</p>
+        <p class="sm">Usamos tus datos solo para contactarte y coordinar tus consultorías.</p>
         <div class="err" id="err2"></div>
         <div class="row"><button class="btn" id="send">Enviar mis datos</button></div>
       </div>
-      <div id="thx" style="display:none;color:var(--mute);margin-top:10px">¡Gracias por completar el diagnóstico!</div>
-      <div class="row"><button class="btn alt" id="again">Repetir el diagnóstico</button></div>
+      <div id="thx" style="display:none;color:var(--mute);margin-top:10px"></div>
+      <div class="row"><button class="btn alt" id="again">Volver a responder</button></div>
     </div>
   </section>
 
@@ -109,57 +115,78 @@ footer{color:var(--mute);font-size:13px;margin-top:28px;text-align:center}
 
 <script>
 var AX=["Tablero de control","Datos y sistemas","Disponibilidad de la información","Procesos y personas","Automatización e IA"];
-var TXT=[
-"Hay lugar para tener más claridad sobre qué productos, clientes o unidades aportan más margen y cómo se comparan con los objetivos. Medirlo con criterios claros suele ser uno de los cambios de mayor impacto.",
-"Reunir la información en una única fuente confiable y accesible ayuda a que los números coincidan entre áreas y a conseguir cualquier dato en minutos.",
-"Un tablero que se actualice solo permite contar con los números a tiempo y detectar desvíos cuando todavía se puede reaccionar.",
-"Documentar y estandarizar las tareas clave facilita que el conocimiento quede en la empresa y reduce errores y reprocesos.",
-"Automatizar tareas repetitivas e incorporar IA en procesos concretos libera horas del equipo para actividades de mayor valor."];
+var LV=["Con mucho potencial de mejora","Optimizable","Muy bueno"];
+var LT=["Pareciera que hay varias oportunidades donde pequeños cambios podrían tener mucho impacto.","Pareciera que hay algunas oportunidades de mejora.","Es posible que haya aspectos por afinar."];
+var TXT=["Hay espacio para medir con más claridad qué rinde y qué no, y compararlo con objetivos.",
+"Reunir y ordenar la información en un solo lugar puede ahorrar tiempo y evitar diferencias entre áreas.",
+"Contar con los números a tiempo permite reaccionar antes de que un desvío impacte.",
+"Definir cómo se hacen las tareas clave y quién decide ayuda a depender menos de personas puntuales.",
+"Automatizar tareas repetitivas y la comunicación con clientes y proveedores libera horas del equipo."];
+var PRE=["Ventas bajas o inestables","Costos que suben más rápido que los precios","Saber qué productos o clientes realmente dejan ganancia","Tener plata disponible y cobrar a tiempo","Que todo dependa de mí","Conseguir y retener buen personal","Demoras o errores en producción, entrega o atención","No tener información a tiempo para decidir","Impuestos y trámites"];
 var Q=[
-[0,"¿Cómo sabés si tu negocio está siendo rentable?",["Por la caja: si alcanza para pagar las cuentas, entiendo que va bien","Me lo informa el contador o el balance, con meses de atraso","Reviso un resultado mensual y lo comparo contra un objetivo o contra períodos anteriores"]],
-[0,"¿Cómo fijás tus objetivos de rentabilidad?",["No tengo objetivos definidos; el foco es vender más","Tengo una meta general (por ejemplo, crecer un porcentaje), pero no por producto, cliente o unidad","Tengo metas de margen por línea o unidad, y las sigo periódicamente"]],
-[0,"Si te pregunto qué producto, cliente o unidad te deja más margen, ¿cómo lo sabés?",["Lo intuyo por experiencia, pero no lo tengo medido","Lo calculo en una planilla cuando lo necesito","Lo veo en un reporte periódico y confiable"]],
-[0,"¿Sabés cuánto tenés que vender por mes para no perder plata?",["No, nunca lo calculé","Tengo un número aproximado, pero no lo actualizo","Lo conozco y lo reviso cuando cambian los costos"]],
-[0,"¿Cómo definís los precios de lo que vendés?",["Miro lo que cobra la competencia o lo que el cliente acepta","Costo más un porcentaje, pero el costo no siempre está al día","Parto de un costo actualizado y un margen objetivo por línea o cliente"]],
-[1,"¿Qué usás para llevar el control de tu negocio (ventas, compras, stock, producción)?",["Planillas y cuadernos, todo manual","Un sistema de gestión (ERP o similar), pero igual termino armando planillas aparte","Un sistema que me da casi todo lo que necesito, sin planillas extra"]],
-[1,"Si necesitás un dato puntual (por ejemplo, cuánto le vendiste a un cliente en el último año, o cuánto te costó realmente producir un pedido o un lote), ¿cuánto tardás en tenerlo?",["Hay que pedirlo y armarlo, y puede llevar días","Lo consigo el mismo día, pero alguien tiene que buscarlo","Lo veo en minutos, sin depender de nadie"]],
-[1,"Cuando comparás números de distintas áreas (por ejemplo, lo que dice producción que fabricó contra lo que figura en stock y en ventas), ¿coinciden?",["Suelen dar distinto y hay que averiguar por qué","A veces coinciden y a veces hay que conciliarlos","Casi siempre coinciden"]],
-[2,"¿Cómo te enterás de cómo viene el negocio mes a mes (ventas, costos, producción)?",["No tengo un informe periódico; me guío por lo que veo y lo que me cuentan","Alguien arma un informe a mano, y lleva horas o días","Lo veo en un reporte que se actualiza solo"]],
-[2,"¿Cuándo tenés los números del mes cerrados?",["Pasados 20 días o más","Entre 10 y 20 días","En los primeros días del mes siguiente"]],
-[2,"Cuando algo se desvía (por ejemplo, suben los costos, aumenta el desperdicio o las devoluciones, o baja el margen), ¿cuándo te enterás?",["Cuando ya pasó y el impacto es evidente","Al cierre del mes, cuando se revisan los números","Casi en el momento, porque hay alertas o un seguimiento frecuente"]],
-[3,"Las tareas importantes de tu empresa (por ejemplo, cotizar, comprar, producir, despachar), ¿cómo se hacen?",["Cada persona las hace a su manera, según su experiencia","Hay una forma habitual de hacerlas, pero no está escrita","Están definidas por escrito y se siguen"]],
-[3,"Si una persona clave faltara una semana (por ejemplo, quien programa la producción o quien arma las cotizaciones), ¿qué pasaría?",["Algo se frenaría o se haría mal","Se cubriría con esfuerzo, llamándola o improvisando","Casi no se notaría, porque alguien más sabe cómo hacerlo"]],
-[3,"Cuando se comete un error (un pedido mal armado, un lote rechazado, un reclamo de un cliente), ¿qué se hace?",["Se arregla y se sigue","Se habla del tema, pero no queda registrado","Se registra, se busca la causa y se toman medidas para que no se repita"]],
-[4,"En tu empresa, ¿cuánto tiempo se va en tareas repetitivas, como pasar datos de un lugar a otro, cargar planillas, armar informes o hacer pedidos de materiales?",["Mucho: es uno de los grandes cuellos de botella del equipo","Bastante, pero lo tenemos manejable","Muy poco, la mayoría está automatizada"]],
-[4,"¿Usan inteligencia artificial en el trabajo (por ejemplo, para redactar, analizar datos, responder consultas de clientes o leer documentos)?",["No la usamos","Algunas personas la usan por su cuenta, de manera informal","La tenemos incorporada en tareas o procesos concretos de la empresa"]]];
-var ST={};
-var ENDPOINT="https://script.google.com/macros/s/AKfycbx4uvB9V9UiS__IMwWRUIX6bf49CuFeKzORrO7FLsX7BwHL8OXf1prAZS3FEFl3FZ7gWQ/exec";
-var ID=Date.now().toString(36)+Math.random().toString(36).slice(2,7);
+[0,"¿Cómo te das cuenta de si tu negocio está siendo rentable?",[["Reviso mis resultados todos los meses",1],["Veo si alcanza la plata para pagar las cuentas",0],["Mi contador o responsable de finanzas me lo informa",1],["Comparo cada mes mis resultados con un objetivo",2]]],
+[0,"Si te pregunto qué productos, servicios o clientes te dejan más ganancia, ¿en qué te basás?",[["En una planilla que armo cuando lo necesito",1],["En lo que más vendo y en mi experiencia",0],["En un cálculo que incluye todos los costos",2],["En un informe de mi sistema o de mi contador",1]]],
+[0,"¿Cómo definís tus precios?",[["Le sumo un porcentaje al costo",1],["Parto de costos actualizados y de un margen objetivo",2],["Miro lo que cobra la competencia o lo que el cliente acepta",0],["Los ajusto cuando noto que los costos subieron",1]]],
+[0,"¿Cómo estimás tus ingresos y costos de los próximos meses?",[["Armo una planilla con lo que voy a cobrar y pagar",1],["Me guío por el saldo del banco y los pagos de la semana",0],["Proyecto mes a mes lo que voy a ingresar y gastar",2],["Sé qué me deben los clientes y cuándo van a pagar",1]]],
+[0,"¿Cómo seguís tus ventas y tus clientes?",[["Reviso cuánto vendí al cerrar cada mes",1],["Comparo mis ventas con lo necesario para cubrir mis costos",2],["Me guío por lo que veo en el día a día",0],["Tengo anotado cuánto compra cada cliente",1]]],
+[1,"¿Qué usás para llevar el control de tu negocio (ventas, compras, stock, producción)?",[["Planillas de Excel o similares",1],["Cuadernos o anotaciones a mano",0],["Un sistema que integra todas las áreas",2],["Un sistema de gestión (ERP) más algunas planillas aparte",1]]],
+[1,"Cuando necesitás un dato puntual (por ejemplo, cuánto le vendiste a un cliente en el año o cuánto te costó producir un pedido), ¿cómo lo conseguís?",[["Se lo pido a alguien que lo busque o lo arme",0],["Lo veo directamente en un tablero o informe armado",2],["Lo busco en mis planillas o anotaciones",1],["Lo consulto en mi sistema de gestión",1]]],
+[1,"Cuando comparás números de distintas áreas (por ejemplo, producción, stock y ventas), ¿cómo te asegurás de que coincidan?",[["Los comparo yo cuando noto una diferencia",0],["Todas las áreas cargan sus datos en un mismo sistema",2],["Alguien concilia los datos todos los meses",1],["Hago un control cada tanto con alguien del equipo",1]]],
+[2,"¿Cómo te enterás de cómo viene tu negocio mes a mes (ventas, costos, producción)?",[["Alguien del equipo arma un informe en una planilla",1],["Veo un tablero que se actualiza solo",2],["Me guío por lo que veo y me cuenta el equipo",0],["Mi contador o responsable de finanzas me pasa los números",1]]],
+[2,"Cuando algo se desvía (suben los costos, aumentan el desperdicio o las devoluciones, baja el margen), ¿cómo te enterás?",[["Cuando ya se nota en los resultados",0],["Cuando reviso los números del mes",1],["Me avisa alguien del equipo cuando lo detecta",1],["Tengo indicadores o alertas que me avisan a tiempo",2]]],
+[3,"Las tareas importantes de tu empresa (cotizar, comprar, producir, despachar), ¿cómo se hacen?",[["Algunas tienen instructivos o listas de pasos",1],["Están definidas por escrito y se revisan cada tanto",2],["Cada persona las resuelve según su experiencia",0],["Hay una forma habitual que todos conocen",1]]],
+[3,"¿Cómo se toman las decisiones del día a día en tu empresa?",[["Me consultan por casi todo",0],["Hay criterios acordados para que el equipo decida",2],["Delego según la persona y la situación",1],["Decido lo importante y el equipo resuelve el resto",1]]],
+[3,"Si vos o una persona clave faltaran una semana, ¿cómo seguiría el trabajo?",[["Habría que esperar a que vuelva o improvisar",0],["Alguien lo cubre y consulta cuando hace falta",1],["Hay quien conoce el trabajo y puede reemplazarlo",1],["Hay un reemplazo definido y las tareas están documentadas",2]]],
+[3,"Cuando se comete un error (un pedido mal armado, un lote rechazado, un reclamo de un cliente), ¿qué se hace?",[["Se registra y se analiza la causa del error",2],["Se habla con el equipo, pero no queda registrado",1],["Queda anotado para llevar la cuenta de los errores",1],["Se corrige y se sigue adelante",0]]],
+[4,"Las tareas repetitivas (pasar datos de un lugar a otro, cargar planillas, armar informes, pedir materiales), ¿cómo se resuelven?",[["Se hacen a mano cada vez que hacen falta",0],["Usamos plantillas o fórmulas para ahorrar tiempo",1],["Algunos pasos están resueltos con macros o atajos",1],["Están automatizadas con sistemas o herramientas",2]]],
+[4,"¿Para qué usan inteligencia artificial en tu empresa?",[["Todavía no la usamos",0],["Algunas personas la usan por su cuenta",1],["La usamos de forma regular en tareas puntuales",1],["Está integrada a procesos definidos de la empresa",2]]],
+[4,"Los pedidos, cotizaciones y avisos con clientes y proveedores, ¿cómo se manejan?",[["Con llamadas y mensajes que cada persona envía",0],["Con mails o mensajes que usan plantillas",1],["Con formularios o planillas que comparten",1],["Con un sistema que los registra y avisa solo",2]]]];
+
+var ENDPOINT="https://script.google.com/macros/s/AKfycbxUBOmsSg0Mscb92JiMxyPs6KnDh3OtJYmjxMHSjVzL-WBkkOEM0r2FA01HO-ddRN66UQ/exec",ID=Date.now().toString(36)+Math.random().toString(36).slice(2,7),ST={},t0=0;
+function $(id){return document.getElementById(id)}
+function val(id){return $(id).value.trim()}
+function esc(s){return s.replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
+function shuf(a){a=a.slice();for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1)),t=a[i];a[i]=a[j];a[j]=t}return a}
+function lv(p){return p<40?0:p<75?1:2}
 function post(o){
   if(!ENDPOINT)return Promise.resolve(false);
   return fetch(ENDPOINT,{method:"POST",mode:"no-cors",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify(o)}).then(function(){return true}).catch(function(){return false});
 }
-var qs=document.getElementById("qs");
+var OTRA='<span>Otra:</span><input type="text" class="ot">';
 Q.forEach(function(q,i){
-  var d=document.createElement("div");d.className="card";
-  var h='<p class="q">'+(i+1)+". "+q[1]+"</p>";
-  q[2].forEach(function(o,j){h+='<label class="opt"><input type="radio" name="q'+i+'" value="'+j+'"><span>'+o+"</span></label>"});
-  d.innerHTML=h;qs.appendChild(d);
+  var d=document.createElement("div");d.className="card";d.id="q"+i;
+  var h='<p class="q">'+(i+1)+". "+q[1]+'</p><p class="sm" style="margin:-6px 0 10px">Podés marcar más de una</p>';
+  shuf(q[2].map(function(o,j){return[o[0],j]})).forEach(function(o){h+='<label class="opt"><input type="checkbox" data-j="'+o[1]+'"><span>'+o[0]+"</span></label>"});
+  d.innerHTML=h+'<label class="opt"><input type="checkbox" data-o="1">'+OTRA+"</label>";
+  $("qs").appendChild(d);
 });
-function answered(){return Q.filter(function(_,i){return document.querySelector('input[name="q'+i+'"]:checked')}).length}
-qs.addEventListener("change",function(){document.getElementById("prog").style.width=(answered()/Q.length*100)+"%"});
-function bars(pc){return AX.map(function(a,i){return '<div class="br"><div class="bl"><span>'+a+"</span><b>"+pc[i]+'%</b></div><div class="bt"><i style="width:'+Math.max(pc[i],3)+'%"></i></div></div>'}).join("")}
-function val(id){return document.getElementById(id).value.trim()}
+var P=$("pre");
+PRE.forEach(function(t,j){var l=document.createElement("label");l.className="opt";l.innerHTML='<input type="checkbox" data-j="'+j+'"><span>'+t+"</span>";P.appendChild(l)});
+var lo=document.createElement("label");lo.className="opt";lo.innerHTML='<input type="checkbox" data-o="1">'+OTRA.replace("Otra:","Otro:");P.appendChild(lo);
+function checks(el){return Array.prototype.slice.call(el.querySelectorAll('input[type=checkbox]'))}
+function chosen(i){return checks($("q"+i)).filter(function(c){return c.checked})}
+function answered(){return Q.filter(function(_,i){return chosen(i).length}).length}
+function prog(){$("prog").style.width=(answered()/Q.length*100)+"%"}
+document.addEventListener("input",function(e){
+  if(e.target.classList.contains("ot")){e.target.parentNode.querySelector("input[type=checkbox]").checked=!!e.target.value.trim();lim();prog()}
+});
+function lim(){var c=checks(P),n=c.filter(function(x){return x.checked}).length;c.forEach(function(x){x.disabled=!x.checked&&n>=3})}
+$("qs").addEventListener("change",function(){if(!t0)t0=Date.now();prog()});
+P.addEventListener("change",lim);
+function scoreQ(i){var m=null;chosen(i).forEach(function(c){if(c.dataset.o)return;var l=Q[i][2][+c.dataset.j][1];m=m===null?l:Math.max(m,l)});return m}
+function ansQ(i){return chosen(i).map(function(c){return c.dataset.o?"Otra: "+(c.parentNode.querySelector(".ot").value.trim()||"(sin texto)"):Q[i][2][+c.dataset.j][0]}).join(" | ")}
+function preList(){return checks(P).filter(function(c){return c.checked}).map(function(c){return c.dataset.o?"Otro: "+(c.parentNode.querySelector(".ot").value.trim()||"(sin texto)"):PRE[+c.dataset.j]})}
+
 function upd(){
-  var pr=document.querySelector('input[name="pref"]:checked'),no=pr&&pr.value==="No por ahora",t=document.getElementById("thx");
-  document.getElementById("cf").style.display=pr&&!no&&!ST.done?"block":"none";
+  var pr=document.querySelector('input[name="pref"]:checked'),no=pr&&pr.value==="No por ahora",t=$("thx");
+  $("cf").style.display=pr&&!no&&!ST.done?"block":"none";
   if(no){
-    t.style.display="block";t.textContent="¡Gracias por completar el diagnóstico!";
+    t.style.display="block";t.textContent="¡Gracias por responder!";
     if(!ST.noSent){ST.noSent=1;post({tipo:"contacto",id:ID,preferencia:"No por ahora",nombre:"",empresa:"",mail:"",telefono:""})}
   }else if(!ST.done)t.style.display="none";
 }
-document.getElementById("send").onclick=function(){
-  var pr=document.querySelector('input[name="pref"]:checked'),m="",er=document.getElementById("err2");
+$("send").onclick=function(){
+  var pr=document.querySelector('input[name="pref"]:checked'),m="",er=$("err2");
   if(pr.value==="Mail"&&!/^\S+@\S+\.\S+$/.test(val("mail")))m="Ingresá un mail válido para que podamos contactarte.";
   else if(pr.value!=="Mail"&&val("tel").replace(/\D/g,"").length<8)m="Ingresá un teléfono para que podamos contactarte.";
   er.textContent=m;if(m)return;
@@ -168,40 +195,38 @@ document.getElementById("send").onclick=function(){
   post({tipo:"contacto",id:ID,preferencia:pr.value,nombre:ST.nom,empresa:ST.emp,mail:val("mail"),telefono:val("tel")}).then(function(ok){
     b.disabled=false;
     if(ok){
-      ST.done=1;var t=document.getElementById("thx");t.style.display="block";
-      t.textContent="¡Gracias! Recibimos tus datos y te vamos a contactar por "+(pr.value==="Mail"?"mail":"teléfono o WhatsApp")+".";
-      document.getElementById("cf").style.display="none";
+      ST.done=1;var t=$("thx");t.style.display="block";
+      t.textContent="¡Gracias! Recibimos tus datos y te vamos a contactar por "+(pr.value==="Mail"?"mail":"teléfono o WhatsApp")+" para coordinar tus consultorías.";
+      $("cf").style.display="none";
     }else er.textContent="No pudimos enviar tus datos. Probá de nuevo en unos minutos.";
   });
 };
-document.getElementById("res").addEventListener("change",upd);
-document.getElementById("cf").addEventListener("input",upd);
-document.getElementById("go").onclick=function(){
-  var err=document.getElementById("err");
-  if(answered()<Q.length){err.textContent="Te faltan "+(Q.length-answered())+" preguntas por responder.";return}
+$("res").addEventListener("change",upd);
+$("again").onclick=function(){location.reload()};
+
+$("go").onclick=function(){
+  var err=$("err");
+  if(answered()<Q.length){err.textContent="Te faltan "+(Q.length-answered())+" preguntas por responder (marcá al menos una opción en cada una).";return}
   err.textContent="";
-  var sc=[0,0,0,0,0],cnt=[0,0,0,0,0];
-  Q.forEach(function(q,i){sc[q[0]]+=+document.querySelector('input[name="q'+i+'"]:checked').value;cnt[q[0]]++});
-  var pc=sc.map(function(v,i){return Math.round(v/(2*cnt[i])*100)});
-  var tot=Math.round(pc.reduce(function(a,b){return a+b},0)/5);
-  var perfect=pc.every(function(v){return v===100});
-  var lvl=perfect?"¡Excelente!":tot<40?"En construcción":tot<70?"En desarrollo":"Bien encaminado";
-  var sum=perfect?"Parece que vas muy bien. ¡Felicitaciones!":tot<40?"Hay varios frentes donde pequeños cambios pueden generar mucho valor.":tot<70?"Ya hay una buena base sobre la cual seguir mejorando.":"La gestión está bien encaminada, con espacio para seguir afinando.";
-  post({tipo:"resultado",id:ID,rubro:val("rub"),empleados:document.getElementById("cant").value,total:tot,nivel:lvl,puntajes:pc,dolor:val("dolor"),preguntas:Q.map(function(q){return q[1]}),respuestas:Q.map(function(q,i){return q[2][+document.querySelector('input[name="q'+i+'"]:checked').value]})});ST={nom:val("nom"),emp:val("emp"),rub:val("rub"),cant:document.getElementById("cant").value,dol:val("dolor"),tot:tot,lvl:lvl,pc:pc};
-  document.getElementById("tot").textContent=tot+"/100";
-  document.getElementById("lvl").textContent=lvl;
-  document.getElementById("sum").textContent=sum;
-  document.getElementById("axes").innerHTML=bars(pc);
-  var ord=pc.map(function(v,i){return i}).filter(function(i){return pc[i]<100}).sort(function(a,b){return pc[a]-pc[b]}).slice(0,2);
-  document.getElementById("oh").textContent=perfect?"Un resultado sobresaliente":"Oportunidades para seguir mejorando";
-  document.getElementById("opps").innerHTML=perfect?'<p style="color:var(--mute);margin:0">Tus respuestas muestran una gestión muy sólida en todos los frentes. Si querés, podemos conversar cómo seguir optimizando lo que ya funciona.</p>':ord.map(function(i){return '<div class="opp"><b>'+AX[i]+" ("+pc[i]+"%)</b>"+TXT[i]+"</div>"}).join("");
-  upd();
-  document.getElementById("intro").style.display="none";
-  document.getElementById("quiz").style.display="none";
-  document.getElementById("res").style.display="block";
+  var s=AX.map(function(){return[0,0]});
+  Q.forEach(function(q,i){var l=scoreQ(i);if(l!==null){s[q[0]][0]+=l;s[q[0]][1]++}});
+  var pc=s.map(function(a){return a[1]?Math.round(a[0]/(2*a[1])*100):null});
+  var ok=pc.filter(function(v){return v!==null});
+  var tot=ok.length?Math.round(ok.reduce(function(a,b){return a+b},0)/ok.length):0;
+  var perfect=ok.length>0&&ok.every(function(v){return lv(v)===2});
+  var gl=lv(tot),pr=preList();
+  post({tipo:"resultado",id:ID,rubro:val("rub"),empleados:$("cant").value,nivel:LV[gl],total:tot,segundos:t0?Math.round((Date.now()-t0)/1000):"",puntajes:pc.map(function(v){return v===null?"":v}),preocupaciones:pr,dolor:val("dolor"),preguntas:Q.map(function(q){return q[1]}),respuestas:Q.map(function(q,i){return ansQ(i)})});
+  ST={nom:val("nom"),emp:val("emp")};
+  $("lvl").textContent=LV[gl];
+  $("sum").textContent=perfect?"Parece que vas muy bien. ¡Felicitaciones!":LT[gl];
+  $("axes").innerHTML=AX.map(function(a,i){var l=pc[i]===null?-1:lv(pc[i]);return '<div class="br"><div class="bl"><span>'+a+"</span><b>"+(l<0?"Sin datos":LV[l])+'</b></div><div class="seg">'+[0,1,2].map(function(k){return"<i"+(k<=l?' class="on"':"")+"></i>"}).join("")+"</div></div>"}).join("");
+  var ord=AX.map(function(_,i){return i}).filter(function(i){return pc[i]!==null&&lv(pc[i])<2}).sort(function(a,b){return pc[a]-pc[b]}).slice(0,2);
+  $("oh").textContent=perfect?"Un resultado sobresaliente":"Temas para profundizar";
+  $("opps").innerHTML=perfect?'<p style="color:var(--mute);margin:0">Tus respuestas muestran una gestión muy sólida en todos los frentes. Si querés, podemos conversar cómo seguir optimizando lo que ya funciona.</p>':ord.map(function(i){return'<div class="opp"><b>'+AX[i]+"</b>"+TXT[i]+"</div>"}).join("");
+  $("prel").innerHTML=pr.length?"<p style=\"margin:0\">Marcaste como preocupaciones: <b>"+esc(pr.join(", "))+".</b> Las vemos en la primera consultoría.</p>":"";
+  $("intro").style.display="none";$("quiz").style.display="none";$("res").style.display="block";
   window.scrollTo(0,0);
 };
-document.getElementById("again").onclick=function(){location.reload()};
 </script>
 </body>
 </html>
