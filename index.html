@@ -55,7 +55,8 @@ footer{color:var(--mute);font-size:13px;margin-top:28px;text-align:center}
 
   <section id="intro">
     <h1>¿Qué te duele de tu empresa?</h1>
-    <p class="lead">En unos 8 minutos, identificá oportunidades de mejora para tu empresa. Respondé y accedé a 2 consultorías de una hora, sin cargo.</p>
+    <p class="lead">En pocos minutos, identificá oportunidades de mejora para tu empresa. Sin costo y al instante.</p>
+    <p style="color:var(--mute);margin:0 0 22px">Respondé 17 preguntas sobre tu empresa. Al terminar vas a ver tus puntos fuertes y oportunidades de mejora.</p>
   </section>
 
   <section id="quiz">
@@ -83,28 +84,28 @@ footer{color:var(--mute);font-size:13px;margin-top:28px;text-align:center}
   <section id="res">
     <div class="card">
       <div class="score" id="pct"></div>
-      <div class="bar" style="margin:10px 0 12px"><i id="pbar"></i></div>
       <div id="sum" style="color:var(--mute)"></div>
-      <p class="sm" style="margin:12px 0 0">Este porcentaje es orientativo, basado en tus respuestas.</p>
+      <div id="axes" style="margin-top:14px"></div>
+      <p class="sm" style="margin:14px 0 0">Los porcentajes son orientativos, basados en tus respuestas.</p>
+    </div>
+    <div class="card" id="strc" style="display:none">
+      <h2 style="margin:0 0 6px;font-size:20px">Tus puntos fuertes</h2>
+      <div id="strs"></div>
     </div>
     <div class="card">
       <h2 id="oh" style="margin:0 0 6px;font-size:20px"></h2>
       <div id="opps"></div>
       <div id="prel" style="margin-top:12px"></div>
+      <p style="color:var(--mute);margin:14px 0 0">Si querés profundizar, podés coordinar una reunión sin compromiso.</p>
     </div>
     <div class="card">
-      <h2 style="margin:0 0 6px;font-size:20px">Hablemos de tus resultados</h2>
-      <p style="color:var(--mute);margin:0 0 16px">Accedé a 2 consultorías de una hora, sin cargo.</p>
-      <p class="q">¿Querés que te contactemos para coordinarlas?</p>
-      <label class="opt"><input type="radio" name="pref" value="Mail"><span>Sí, por mail</span></label>
-      <label class="opt"><input type="radio" name="pref" value="Teléfono o WhatsApp"><span>Sí, por teléfono o WhatsApp</span></label>
-      <label class="opt"><input type="radio" name="pref" value="No por ahora"><span>Por ahora no</span></label>
-      <div id="cf" style="display:none">
-        <label class="f" style="margin-top:12px">Tu nombre<input type="text" id="nom" autocomplete="name"></label>
+      <label class="opt" style="margin:0"><input type="checkbox" id="want"><span>Quiero que me contacten para comentarme cómo optimizar e incorporar herramientas de IA en mi empresa.</span></label>
+      <div id="cf" style="display:none;margin-top:14px">
+        <label class="f">Tu nombre<input type="text" id="nom" autocomplete="name"></label>
         <label class="f">Empresa<input type="text" id="emp" autocomplete="organization"></label>
         <label class="f">Mail<input type="text" id="mail" autocomplete="email" inputmode="email"></label>
         <label class="f">Teléfono (con característica)<input type="text" id="tel" autocomplete="tel" inputmode="tel"></label>
-        <p class="sm">Usamos tus datos solo para contactarte y coordinar tus consultorías.</p>
+        <p class="sm">Completá al menos un medio de contacto. Usamos tus datos solo para contactarte por este tema.</p>
         <div class="err" id="err2"></div>
         <div class="row"><button class="btn" id="send">Enviar mis datos</button></div>
       </div>
@@ -125,9 +126,10 @@ var TXT=["Hay espacio para medir con más claridad qué rinde y qué no, y compa
 "Contar con los números a tiempo permite reaccionar antes de que un desvío impacte.",
 "Definir cómo se hacen las tareas clave y quién decide ayuda a depender menos de personas puntuales.",
 "Automatizar tareas repetitivas y la comunicación con clientes y proveedores libera horas del equipo."];
-var PRE=["Ventas bajas o inestables","Costos que suben más rápido que los precios","Saber qué productos o clientes realmente dejan ganancia","Tener plata disponible y cobrar a tiempo","Que todo dependa de mí","Conseguir y retener buen personal","Demoras o errores en producción, entrega o atención","No tener información a tiempo para decidir","Impuestos y trámites"];
+var STR=["Ya hay una buena base para medir y comparar cómo rinde el negocio.","La información está bastante ordenada y a mano, con pocas diferencias entre áreas.","Los números llegan con tiempo para reaccionar ante los desvíos.","Hay prácticas que ayudan a que el trabajo no dependa de personas puntuales.","Ya se aprovechan herramientas y automatización para ahorrar tiempo."];
+var PRE=["Ventas bajas o inestables","Costos que suben más rápido que los precios","Saber qué productos o clientes realmente dejan ganancia","Tener plata disponible y cobrar a tiempo","Que todo dependa de mí","Conseguir y retener buen personal","Demoras o errores en producción, entrega o atención","No tener información a tiempo para decidir","Impuestos y trámites","No tener claro hacia dónde ir","No saber cómo imaginar nuevos negocios para mi empresa"];
 var Q=[
-[0,"¿Cómo te das cuenta de si tu negocio está siendo rentable?",[["Reviso mis resultados todos los meses",1],["Veo si alcanza la plata para pagar las cuentas",0],["Mi contador o responsable de finanzas me lo informa",1],["Comparo cada mes mis resultados con un objetivo",2]]],
+[0,"¿Cómo te das cuenta de si tu negocio está siendo rentable?",[["Veo si alcanza la plata para pagar las cuentas",0],["Calculo mi resultado del mes (lo que entró menos lo que salió)",1],["Comparo mis resultados con los de otros meses o años",1],["Comparo mis resultados con un objetivo que me fijé",2]]],
 [0,"Si te pregunto qué productos, servicios o clientes te dejan más ganancia, ¿en qué te basás?",[["En una planilla que armo cuando lo necesito",1],["En lo que más vendo y en mi experiencia",0],["En un cálculo que incluye todos los costos",2],["En un informe de mi sistema o de mi contador",1]]],
 [0,"¿Cómo definís tus precios?",[["Le sumo un porcentaje al costo",1],["Parto de costos actualizados y de un margen objetivo",2],["Miro lo que cobra la competencia o lo que el cliente acepta",0],["Los ajusto cuando noto que los costos subieron",1]]],
 [0,"¿Cómo estimás tus ingresos y costos de los próximos meses?",[["Armo una planilla con lo que voy a cobrar y pagar",1],["Me guío por el saldo del banco y los pagos de la semana",0],["Proyecto mes a mes lo que voy a ingresar y gastar",2],["Sé qué me deben los clientes y cuándo van a pagar",1]]],
@@ -180,32 +182,22 @@ function scoreQ(i){var m=null;chosen(i).forEach(function(c){if(c.dataset.o)retur
 function ansQ(i){return chosen(i).map(function(c){return c.dataset.o?"Otra: "+(c.parentNode.querySelector(".ot").value.trim()||"(sin texto)"):Q[i][2][+c.dataset.j][0]}).join(" | ")}
 function preList(){return checks(P).filter(function(c){return c.checked}).map(function(c){return c.dataset.o?"Otro: "+(c.parentNode.querySelector(".ot").value.trim()||"(sin texto)"):PRE[+c.dataset.j]})}
 
-function upd(){
-  var pr=document.querySelector('input[name="pref"]:checked'),no=pr&&pr.value==="No por ahora",t=$("thx");
-  $("cf").style.display=pr&&!no&&!ST.done?"block":"none";
-  if(no){
-    t.style.display="block";t.textContent="¡Gracias por responder!";
-    if(!ST.noSent){ST.noSent=1;post({tipo:"contacto",id:ID,preferencia:"No por ahora",nombre:"",empresa:"",mail:"",telefono:""})}
-  }else if(!ST.done)t.style.display="none";
-}
+$("want").onchange=function(){$("cf").style.display=this.checked&&!ST.done?"block":"none"};
 $("send").onclick=function(){
-  var pr=document.querySelector('input[name="pref"]:checked'),m="",er=$("err2");
+  var m="",er=$("err2"),ml=val("mail"),tl=val("tel"),okm=/^\S+@\S+\.\S+$/.test(ml),okt=tl.replace(/\D/g,"").length>=8;
   if(!val("nom"))m="Ingresá tu nombre para que sepamos a quién contactar.";
-  else if(pr.value==="Mail"&&!/^\S+@\S+\.\S+$/.test(val("mail")))m="Ingresá un mail válido para que podamos contactarte.";
-  else if(pr.value!=="Mail"&&val("tel").replace(/\D/g,"").length<8)m="Ingresá un teléfono para que podamos contactarte.";
+  else if(!okm&&!okt)m="Ingresá un mail válido o un teléfono para que podamos contactarte.";
+  else if(ml&&!okm)m="El mail no parece válido.";
+  else if(tl&&!okt)m="El teléfono no parece válido.";
   er.textContent=m;if(m)return;
   if(!ENDPOINT){er.textContent="El envío no está configurado todavía.";return}
   var b=this;b.disabled=true;
-  post({tipo:"contacto",id:ID,preferencia:pr.value,nombre:val("nom"),empresa:val("emp"),mail:val("mail"),telefono:val("tel")}).then(function(ok){
+  post({tipo:"contacto",id:ID,preferencia:okm&&okt?"Mail y teléfono":okm?"Mail":"Teléfono",nombre:val("nom"),empresa:val("emp"),mail:ml,telefono:tl}).then(function(ok){
     b.disabled=false;
-    if(ok){
-      ST.done=1;var t=$("thx");t.style.display="block";
-      t.textContent="¡Gracias! Recibimos tus datos y te vamos a contactar por "+(pr.value==="Mail"?"mail":"teléfono o WhatsApp")+" para coordinar tus consultorías.";
-      $("cf").style.display="none";
-    }else er.textContent="No pudimos enviar tus datos. Probá de nuevo en unos minutos.";
+    if(ok){ST.done=1;var t=$("thx");t.style.display="block";t.textContent="¡Gracias! Recibimos tus datos y te vamos a contactar.";$("cf").style.display="none";$("want").disabled=true}
+    else er.textContent="No pudimos enviar tus datos. Probá de nuevo en unos minutos.";
   });
 };
-$("res").addEventListener("change",upd);
 $("again").onclick=function(){location.reload()};
 
 $("go").onclick=function(){
@@ -221,12 +213,16 @@ $("go").onclick=function(){
   var gl=lv(tot),pr=preList();
   post({tipo:"resultado",id:ID,rubro:val("rub"),empleados:$("cant").value,nivel:LV[gl],total:tot,segundos:t0?Math.round((Date.now()-t0)/1000):"",puntajes:pc.map(function(v){return v===null?"":v}),preocupaciones:pr,dolor:val("dolor"),preguntas:Q.map(function(q){return q[1]}),respuestas:Q.map(function(q,i){return ansQ(i)})});
   ST={};
-  $("pct").textContent=tot+"%";$("pbar").style.width=Math.max(tot,3)+"%";
+  $("pct").textContent=tot+"%";
+  $("axes").innerHTML=AX.map(function(a,i){var p=pc[i];return'<div class="br"><div class="bl"><span>'+a+"</span><b>"+(p===null?"Sin datos":p+"%")+'</b></div><div class="bt"><i style="width:'+(p===null?0:Math.max(p,3))+'%"></i></div></div>'}).join("");
   $("sum").textContent=perfect?"Parece que vas muy bien. ¡Felicitaciones!":LT[gl];
   var ord=AX.map(function(_,i){return i}).filter(function(i){return pc[i]!==null&&lv(pc[i])<2}).sort(function(a,b){return pc[a]-pc[b]}).slice(0,2);
   $("oh").textContent=perfect?"Un resultado sobresaliente":"Temas para profundizar";
   $("opps").innerHTML=perfect?'<p style="color:var(--mute);margin:0">Tus respuestas muestran una gestión muy sólida en todos los frentes. Si querés, podemos conversar cómo seguir optimizando lo que ya funciona.</p>':ord.map(function(i){return'<div class="opp"><b>'+AX[i]+"</b>"+TXT[i]+"</div>"}).join("");
-  $("prel").innerHTML=pr.length?"<p style=\"margin:0\">Marcaste como preocupaciones: <b>"+esc(pr.join(", "))+".</b> Las vemos en la primera consultoría.</p>":"";
+  $("prel").innerHTML=pr.length?"<p style=\"margin:0\">Marcaste como preocupaciones: <b>"+esc(pr.join(", "))+".</b> Podemos conversarlas si coordinamos una reunión.</p>":"";
+  var st=AX.map(function(_,i){return i}).filter(function(i){return pc[i]!==null&&pc[i]>=50&&ord.indexOf(i)<0}).sort(function(a,b){return pc[b]-pc[a]});
+  $("strc").style.display=st.length?"block":"none";
+  $("strs").innerHTML=st.map(function(i){return'<div class="opp"><b>'+AX[i]+"</b>"+STR[i]+"</div>"}).join("");
   $("intro").style.display="none";$("quiz").style.display="none";$("res").style.display="block";
   window.scrollTo(0,0);
 };
