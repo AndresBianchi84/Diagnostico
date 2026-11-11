@@ -66,7 +66,6 @@ footer{color:var(--mute);font-size:13px;margin-top:28px;text-align:center}
       <label class="f">Rubro o actividad<input type="text" id="rub"></label>
       <label class="f" style="margin:0">Cantidad de empleados<select id="cant"><option value="">Seleccioná una opción</option><option>1 a 5</option><option>6 a 20</option><option>21 a 50</option><option>Más de 50</option></select></label>
     </div>
-    <p class="sm" style="margin:0 0 8px">En cada pregunta podés marcar más de una opción.</p>
     <div class="bar"><i id="prog"></i></div>
     <div id="qs"></div>
     <div class="card" id="pre">
@@ -110,7 +109,7 @@ footer{color:var(--mute);font-size:13px;margin-top:28px;text-align:center}
         <div class="row"><button class="btn" id="send">Enviar mis datos</button></div>
       </div>
       <div id="thx" style="display:none;color:var(--mute);margin-top:10px"></div>
-      <div class="row"><button class="btn alt" id="again">Volver a responder</button></div>
+      
     </div>
   </section>
 
@@ -160,7 +159,7 @@ function post(o){
 var OTRA='<span>Otra:</span><input type="text" class="ot">';
 Q.forEach(function(q,i){
   var d=document.createElement("div");d.className="card";d.id="q"+i;
-  var h='<p class="sm" style="margin:0 0 4px">Pregunta '+(i+1)+" de "+Q.length+'</p><p class="q">'+q[1]+"</p>";
+  var h='<p class="sm" style="margin:0 0 4px">Pregunta '+(i+1)+" de "+Q.length+'</p><p class="q">'+q[1]+'</p><p class="sm" style="margin:-6px 0 10px">Podés marcar más de una opción.</p>';
   shuf(q[2].map(function(o,j){return[o[0],j]})).forEach(function(o){h+='<label class="opt"><input type="checkbox" data-j="'+o[1]+'"><span>'+o[0]+"</span></label>"});
   d.innerHTML=h+'<label class="opt"><input type="checkbox" data-o="1">'+OTRA+"</label>";
   $("qs").appendChild(d);
@@ -198,7 +197,7 @@ $("send").onclick=function(){
     else er.textContent="No pudimos enviar tus datos. Probá de nuevo en unos minutos.";
   });
 };
-$("again").onclick=function(){location.reload()};
+
 
 $("go").onclick=function(){
   var err=$("err");
@@ -219,7 +218,7 @@ $("go").onclick=function(){
   var ord=AX.map(function(_,i){return i}).filter(function(i){return pc[i]!==null&&lv(pc[i])<2}).sort(function(a,b){return pc[a]-pc[b]}).slice(0,2);
   $("oh").textContent=perfect?"Un resultado sobresaliente":"Temas para profundizar";
   $("opps").innerHTML=perfect?'<p style="color:var(--mute);margin:0">Tus respuestas muestran una gestión muy sólida en todos los frentes. Si querés, podemos conversar cómo seguir optimizando lo que ya funciona.</p>':ord.map(function(i){return'<div class="opp"><b>'+AX[i]+"</b>"+TXT[i]+"</div>"}).join("");
-  $("prel").innerHTML=pr.length?"<p style=\"margin:0\">Marcaste como preocupaciones: <b>"+esc(pr.join(", "))+".</b> Podemos conversarlas si coordinamos una reunión.</p>":"";
+  $("prel").innerHTML=pr.length?"<p style=\"margin:0\">Marcaste como preocupaciones: <b>"+esc(pr.join(", "))+".</b></p>":"";
   var st=AX.map(function(_,i){return i}).filter(function(i){return pc[i]!==null&&pc[i]>=50&&ord.indexOf(i)<0}).sort(function(a,b){return pc[b]-pc[a]});
   $("strc").style.display=st.length?"block":"none";
   $("strs").innerHTML=st.map(function(i){return'<div class="opp"><b>'+AX[i]+"</b>"+STR[i]+"</div>"}).join("");
